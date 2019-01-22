@@ -35,10 +35,10 @@ class Entry extends Component {
                             <form onSubmit={this.login.bind(this)}>
                                 <fieldset>
                                     <div className="form-group">
-                                        <Field name="email" component="input" type="text" placeholder="" />
+                                        <Field name="email" component="input" type="text" placeholder="E-mail" className="form-control" />
                                     </div>
                                     <div className="form-group">
-                                        <Field name="password" component="input" type="password" />
+                                        <Field name="password" component="input" type="password" placeholder="Senha" className="form-control" />
                                     </div>
                                     <button type="submit" className="btn btn-success">Entrar</button>
                                 </fieldset>
