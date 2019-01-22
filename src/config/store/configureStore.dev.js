@@ -3,6 +3,7 @@ import { routerReducer } from 'react-router-redux'
 import { persistState } from 'redux-devtools'
 import reducers from '../reducers'
 import DevTools from '../containers/DevTools'
+import { reducer as formReducer } from 'redux-form'
 
 const enhancer = compose(
   DevTools.instrument(),
@@ -18,7 +19,8 @@ export default function configureStore(middleware) {
   const store = createStore(
       combineReducers({
         reducers,
-        routing: routerReducer
+        routing: routerReducer,
+        form: formReducer
       }),
       enhancer,
       applyMiddleware(middleware)
