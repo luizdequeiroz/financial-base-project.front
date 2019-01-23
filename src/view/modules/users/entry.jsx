@@ -7,19 +7,15 @@ class Entry extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            email: '',
-            password: ''
-        }
+        this.state = { }
     }
 
     login(e) {
         e.preventDefault()
-
-        const selector = formValueSelector('entryForm')
-        const email = selector(this.state, 'email')
-        console.log(email)
         debugger
+        const selector = formValueSelector('entryForm')
+        const email = selector(this.state, 'email', 'password')
+        console.log(email)
     }
 
     render() {
