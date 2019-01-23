@@ -31,7 +31,7 @@ class App extends Component {
               <Route path="/entry" component={Entry} />
             </Route>
           </Router>
-          {() => process.env.NODE_ENV !== 'production' ? <DevTools /> : false}
+          {process.env.NODE_ENV !== 'production' ? <DevTools /> : false}
         </div>
       </Provider>
     )

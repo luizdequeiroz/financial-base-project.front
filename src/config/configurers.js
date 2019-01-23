@@ -1,11 +1,15 @@
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
+import { bindActionCreators } from 'redux'
 
-export function configureExportation(formComponent, validate = undefined, warns = undefined) {
+export function configureExportation(formComponent, onSubmit, validate = undefined, warns = undefined) {    
+    const form = `${formComponent.name.toLowerCase()}Form`
+    
+    const selectState = state => ({ responses: state.reducers.responses })
+    const selectDispatch = dispatch => bindActionCreators({ onSubmit }, dispatch)
 
-    const select = state => ({ responses: state.reducers.responses })
-    const createReduxForm = reduxForm({ form: `${formComponent.name.toLowerCase()}Form`, validate, warns })
+    const createReduxForm = reduxForm({ form, validate, warns })
     formComponent = createReduxForm(formComponent)
 
-    return connect(select)(formComponent)
+    return connect(selectState, selectDispatch)(formComponent)
 }

@@ -1,22 +1,20 @@
 import React, { Component } from 'react'
-import { Field, formValueSelector  } from 'redux-form'
-import { configureExportation } from '../../../config/configurers';
+import { Field } from 'redux-form'
+import { configureExportation } from '../../../config/configurers'
 
-class Entry extends Component {  
+function login(values, route, props) {
 
-    constructor(props) {
-        super(props)
-
-        this.state = { }
+    return {
+        props,
+        type: 'request',
+        method: 'entry/login',
+        methodType: 'POST',
+        returnReduceKey: 'session',
+        param: values
     }
+}
 
-    login(e) {
-        e.preventDefault()
-        debugger
-        const selector = formValueSelector('entryForm')
-        const email = selector(this.state, 'email', 'password')
-        console.log(email)
-    }
+class Entry extends Component {
 
     render() {
 
@@ -28,7 +26,7 @@ class Entry extends Component {
                             <h3 className="panel-title">Entrada</h3>
                         </div>
                         <div className="panel-body">
-                            <form onSubmit={this.login.bind(this)}>
+                            <form onSubmit={this.props.handleSubmit}>
                                 <fieldset>
                                     <div className="form-group">
                                         <Field name="email" component="input" type="text" placeholder="E-mail" className="form-control" />
@@ -47,4 +45,4 @@ class Entry extends Component {
     }
 }
 
-export default configureExportation(Entry)
+export default configureExportation(Entry, login)
