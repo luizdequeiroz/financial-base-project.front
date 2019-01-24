@@ -8,8 +8,8 @@ const API = process.env.REACT_APP_API_DEVELOP
  * @param {string} returnReduceKey key de reduce na qual deve ser aplicado o valor.
  * @param {any} value valor a ser aplicado na key especificada.
  */
-export function setReducer(context, returnReduceKey, value) {
-    const { props: { dispatch, responses } } = context
+export function setValue(props, returnReduceKey, value) {
+    const { dispatch, responses } = props
 
     responses[returnReduceKey] = value
     dispatch({ type: 'GENERIC_RETURN', data: { ...responses } })
@@ -18,14 +18,15 @@ export function setReducer(context, returnReduceKey, value) {
 /**
  * Função que limpa o reducer.
  */
-export function clearReducer(context) {
-    const { props: { dispatch } } = context
+export function clearValues(props) {
+    const { dispatch } = props
 
     dispatch({ type: 'GENERIC_RETURN', data: {} })
 }
 
 /**
  * Função de consumo de API que trás retorno para o reducer.
+ * @param {any} props propriedades do componente que está a acionar a requisição.
  * @param {string} method assinatura do método da API que será concatenado com a url da API definida (sugestão: use alias).
  * @param {string} returnReduceKey key de reduce na qual deve ser aplicado o retorno da solicitação da API.
  * @param {any} param parâmetros da requisição.
@@ -35,8 +36,7 @@ export function clearReducer(context) {
  * @param {boolean} withFailedModal indica se a solicitação acionará um modal de falha quando a mesma falhar na API (erro tratado na API).
  * @param {boolean} withErrorModal indica se a solicitação acionará um modal de erro quando a mesma errar por alguma razão ao comunicar-se com a API.
  */
-export function request(props, method, returnReduceKey, param = '', methodType = 'GET', withProgressModal = false, withSuccessedModal = false, withWarningModal = false, withFailedModal = false, withErrorModal = false) {
-    const { dispatch, responses } = props
+export function request(props, method, returnReduceKey, param = '', methodType = 'GET', withSuccessedModal = false, withWarningModal = false, withFailedModal = false, withErrorModal = false) {
 
     var init = {
         method: methodType,
@@ -49,7 +49,7 @@ export function request(props, method, returnReduceKey, param = '', methodType =
     if (methodType === 'POST')
         init = { ...init, body: JSON.stringify(param) }
 
-    const url = `${API}/${method}/${methodType === 'GET' ? param : ''}`
+    const url = `${API}/${method}`
 
     const requestKey = getRequestKey({ url, method: methodType, body: methodType === 'POST' ? JSON.stringify(param) : undefined });
     const dedupeOptions = { requestKey }
@@ -61,32 +61,29 @@ export function request(props, method, returnReduceKey, param = '', methodType =
             else if (response.status === 401) {
                 if (window.location.hash === '#/') {
                     sessionStorage.clear()
-                    clearReducer()
+                    clearValues(props)
                 }
                 window.location.hash = '#'
-                swal('Sessão inválida ou expirada!', 'Revalide a sessão para continuar usando o sistema.', 'info')
+                if (withFailedModal) swal('Sessão inválida ou expirada!', 'Revalide a sessão para continuar usando o sistema.', 'info')
             }
         } else {
             throw new Error(JSON.stringify(response))
         }
     }).then(json => {
         if (json.status < 0) {
-            responses[returnReduceKey] = undefined
-            dispatch({ type: 'GENERIC_RETURN', data: { ...responses } })
+            setValue(props, returnReduceKey, undefined)
 
-            swal(json.message, undefined, 'warning')
+            if (withWarningModal) swal(json.message, undefined, 'warning')
 
-            console.error(json.data)
+            console.error(json.message)
         } else {
-            responses[returnReduceKey] = json.token === null ? json : JSON.stringify(json)
-            dispatch({ type: 'GENERIC_RETURN', data: { ...responses } })
+            setValue(props, returnReduceKey, json)
 
-            swal(json.message, undefined, 'success')
+            if (withSuccessedModal) swal(json.message, undefined, 'success')
         }
     }).catch((error) => {
-        responses[returnReduceKey] = undefined
-        dispatch({ type: 'GENERIC_RETURN', data: { ...responses } })
+        setValue(props, returnReduceKey, undefined)
 
-        swal(error.message, undefined, 'error') // TODO: error
+        if (withErrorModal) swal(error.message, undefined, 'error')
     })
 }

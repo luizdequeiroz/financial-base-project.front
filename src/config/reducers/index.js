@@ -1,13 +1,20 @@
 import {
     combineReducers
 } from 'redux'
-import { request } from '../dispatchers'
+import { request, setValue, clearValues } from '../dispatchers'
 
 const responses = (state = {}, action) => {
+    const { props, method, returnReduceKey, param, methodType, withSuccessedModal, withWarningModal, withFailedModal, withErrorModal, value } = action
 
     switch (action.type) {
         case 'request':
-            request(action.props, action.method, action.returnReduceKey, action.param, action.methodType)
+            request(props, method, returnReduceKey, param, methodType, withSuccessedModal, withWarningModal, withFailedModal, withErrorModal)
+            return action
+        case 'setValue':
+            setValue(props, returnReduceKey, value)
+            return action
+        case 'clearValues':
+            clearValues(props)
             return action
         case 'GENERIC_RETURN':
             return action.data
