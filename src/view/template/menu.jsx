@@ -6,7 +6,7 @@ import FaSignOut from 'react-icons/lib/fa/sign-out'
 import FaFileTextO from 'react-icons/lib/fa/file-text-o'
 
 import { clearValues } from '../../config/dispatchers'
-import { configureExportation } from '../../config/configurers'
+import { configure } from '../../config/configurers'
 
 class Menu extends Component {
 
@@ -18,12 +18,13 @@ class Menu extends Component {
     }
 
     render() {
+        
         return (
-            <div>
+            <div>                
                 <Navbar.Collapse>
                     <Navbar.Form pullRight>
                         <ButtonToolbar>
-                            <Dropdown>
+                            <Dropdown id="dropdown-default-1">
                                 <Dropdown.Toggle bsStyle="default">
                                     <FaBars />
                                 </Dropdown.Toggle>
@@ -36,12 +37,9 @@ class Menu extends Component {
                         </ButtonToolbar>
                     </Navbar.Form>
                 </Navbar.Collapse>
-                <div className="hidden-sm">
-
-                </div>
             </div>
         )
     }
 }
 
-export default configureExportation(Menu)
+export default configure()(Menu)()

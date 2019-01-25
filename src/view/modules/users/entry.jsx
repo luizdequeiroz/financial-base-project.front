@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Field } from 'redux-form'
-import { configureExportation } from '../../../config/configurers'
+
+import Input from '../../components/input'
+import { configure } from '../../../config/configurers'
 
 import FaArrowRight from 'react-icons/lib/fa/arrow-right'
-import { request } from '../../../config/dispatchers';
 
 function login(values, route, props) {
 
@@ -17,12 +18,22 @@ function login(values, route, props) {
     }
 }
 
-class Entry extends Component {
+function validate(values) {
 
-    componentDidMount() {
+    const errors = {}
 
-        request(this.props, 'entry/users/1', 'user')
+    if(!values.email) {
+        errors.email = 'E-mail obrigatório.'
     }
+
+    if(!values.password) {
+        errors.password = 'Senha obrigatória.'
+    }
+
+    return errors
+}
+
+class Entry extends Component {
 
     render() {
 
@@ -36,13 +47,13 @@ class Entry extends Component {
                         <form onSubmit={this.props.handleSubmit}>
                             <fieldset>
                                 <div className="form-group">
-                                    <Field name="email" component="input" type="text" placeholder="E-mail" className="form-control" />
+                                    <Field name="email" component={Input} type="email" placeholder="E-mail" />
                                 </div>
                                 <div className="form-group">
-                                    <Field name="password" component="input" type="password" placeholder="Senha" className="form-control" />
+                                    <Field name="password" component={Input} type="password" placeholder="Senha" />
                                 </div>
                                 <button type="submit" className="btn btn-success">Entrar</button>
-                                <a href="#/" style={{ float: "right" }}>Cadastrar <FaArrowRight /></a>
+                                <a href="#/" className="btn btn-link" style={{ float: "right" }}>Cadastrar <FaArrowRight /></a>
                             </fieldset>
                         </form>
                     </div>
@@ -52,4 +63,4 @@ class Entry extends Component {
     }
 }
 
-export default configureExportation(Entry, login)
+export default configure(login, validate)(Entry)()

@@ -5,7 +5,7 @@ import Menu from './template/menu'
 import Footer from './template/footer'
 import Entry from './modules/users/entry'
 
-import { configureExportation } from '../config/configurers'
+import { configure } from '../config/configurers'
 import { setValue, clearValues } from '../config/dispatchers'
 
 class Index extends Component {
@@ -53,4 +53,4 @@ class Index extends Component {
     }
 }
 
-export default configureExportation(Index)
+export default configure()(Index)('session')
