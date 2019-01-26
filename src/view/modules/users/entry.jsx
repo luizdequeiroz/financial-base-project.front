@@ -63,4 +63,4 @@ class Entry extends Component {
     }
 }
 
-export default configure(login, validate)(Entry)()
+export default configure()(login, validate)(Entry)

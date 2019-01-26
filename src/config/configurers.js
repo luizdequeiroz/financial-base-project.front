@@ -2,29 +2,32 @@ import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux'
 
-export function configure(onSubmit = undefined, validate = undefined, warns = undefined) {
-    return (formComponent) => {
-        const form = `${formComponent.name.toLowerCase()}Form`
+export function configure(...responseKeys) {
+    
+    const selectState = state => {
+        let responses = {}
+        responseKeys.forEach(key => responses[key] = state.reducers.responses[key])
+        return {
+            responses
+        }
+    }
+
+    return (onSubmit = undefined, validate = undefined, warns = undefined) => {
 
         const selectDispatch = dispatch => bindActionCreators({
             onSubmit
         }, dispatch)
 
-        const createReduxForm = reduxForm({
-            form,
-            validate,
-            warns
-        })
-        formComponent = createReduxForm(formComponent)
+        return (formComponent) => {
+            const form = `${formComponent.name.toLowerCase()}Form`
 
-        return (...responseKeys) => {
-            const selectState = state => {
-                let responses = {}
-                responseKeys.forEach(key => responses[key] = state.reducers.responses[key])
-                return {
-                    responses
-                }
-            }
+            const createReduxForm = reduxForm({
+                form,
+                validate,
+                warns
+            })
+
+            formComponent = createReduxForm(formComponent)
             return connect(selectState, selectDispatch)(formComponent)
         }
     }
