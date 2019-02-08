@@ -15,7 +15,8 @@ import configureStore from '../config/store/configureStore'
 import './App.css'
 
 // PAGES
-// import Clients from '../view/modules/clients/list'
+import Menu from '../view/modules/entry/menu'
+import Clients from '../view/modules/clients/list'
 
 const store = configureStore(routerMiddleware(hashHistory))
 
@@ -27,8 +28,9 @@ class App extends Component {
         <div>
           <Router history={hashHistory}>
             <Route path="/" component={Index}>
-              <IndexRoute component={Index} />
-              {/* <Route path="/clients" component={Clients} /> */}
+              <IndexRoute component={Menu} />
+              <Route path="/menu" component={Menu} />
+              <Route path="/clients" component={Clients} />
             </Route>
           </Router>
           {process.env.NODE_ENV !== 'production' ? <DevTools /> : ''}

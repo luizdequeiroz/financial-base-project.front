@@ -3,19 +3,13 @@ import { Field } from 'redux-form'
 
 import Input from '../../components/input'
 import { configure } from '../../../config/configurers'
+import { post } from '../../../config/requesters'
 
 import FaArrowRight from 'react-icons/lib/fa/arrow-right'
 
 function login(values, route, props) {
 
-    return {
-        props,
-        type: 'request',
-        method: 'entry/login',
-        methodType: 'POST',
-        returnReduceKey: 'session',
-        param: values
-    }
+    return post(props, 'entry/login', 'session', values, { withWarningAlert: true, msgWarningAlert: 'E-mail ou senha incorreto!' })
 }
 
 function validate(values) {
@@ -63,4 +57,4 @@ class Entry extends Component {
     }
 }
 
-export default configure()(login, validate)(Entry)
+export default configure({ formConfigs: { onSubmit: login, validate }, component: Entry }) //()(login, validate)(Entry)

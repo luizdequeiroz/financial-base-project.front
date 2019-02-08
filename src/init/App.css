@@ -43,6 +43,26 @@
   width: 300px;
 }
 
+.flex-menu {
+  /* configurações flex */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+
+  /* configurações page */
+  margin-top: 80px;
+}
+
+.flex-menu-item {
+  /* configurações item no flex */
+  text-align: center;
+  width: 140px;
+  margin: 5px;
+
+  /* configurações item no menu */
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 350px) {
 
   .content-centered {

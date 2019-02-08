@@ -12,7 +12,7 @@ export function setValue(props, returnReduceKey, value) {
     const { dispatch, responses } = props
 
     responses[returnReduceKey] = value
-    dispatch({ type: 'GENERIC_RETURN', data: { ...responses } })
+    dispatch({ type: 'GENERIC_RETURN', payload: { ...responses } })
 }
 
 /**
@@ -21,7 +21,7 @@ export function setValue(props, returnReduceKey, value) {
 export function clearValues(props) {
     const { dispatch } = props
 
-    dispatch({ type: 'GENERIC_RETURN', data: {} })
+    dispatch({ type: 'GENERIC_RETURN', payload: {} })
 }
 
 /**
@@ -31,12 +31,12 @@ export function clearValues(props) {
  * @param {string} returnReduceKey key de reduce na qual deve ser aplicado o retorno da solicitação da API.
  * @param {any} param parâmetros da requisição.
  * @param {string} methodType tipo de método de requisição (GET ou POST).
- * @param {boolean} withProgressModal indica se a solicitação acionará um modal de carregamento enquanto a mesma é processada.
- * @param {boolean} withSuccessedModal indica se a solicitação acionará um modal de sucesso quando a mesma for bem sucedida.
- * @param {boolean} withFailedModal indica se a solicitação acionará um modal de falha quando a mesma falhar na API (erro tratado na API).
- * @param {boolean} withErrorModal indica se a solicitação acionará um modal de erro quando a mesma errar por alguma razão ao comunicar-se com a API.
+ * @param {boolean} withSuccessedAlert indica se a solicitação acionará um modal de sucesso quando a mesma for bem sucedida.
+ * @param {boolean} withWarningAlert indica se a solicitação acionará um modal de aviso quando a mesma receber da API algum tratamento inesperado.
+ * @param {boolean} withFailedAlert indica se a solicitação acionará um modal de falha quando a mesma falhar na API (erro tratado na API).
+ * @param {boolean} withErrorAlert indica se a solicitação acionará um modal de erro quando a mesma errar por alguma razão ao comunicar-se com a API.
  */
-export function request(props, method, returnReduceKey, param = '', methodType = 'GET', withSuccessedModal = false, withWarningModal = false, withFailedModal = false, withErrorModal = false) {
+export function request(props, method, returnReduceKey, param = '', methodType = 'GET', withSuccessedAlert = false, msgSuccessedAlert, withWarningAlert = false, msgWarningAlert, withFailedAlert = false, msgFailedAlert = 'Revalide a sessão para continuar usando o sistema.', withErrorAlert = false, msgErrorAlert) {
 
     var init = {
         method: methodType,
@@ -64,7 +64,7 @@ export function request(props, method, returnReduceKey, param = '', methodType =
                     clearValues(props)
                 }
                 window.location.hash = '#'
-                if (withFailedModal) swal('Sessão inválida ou expirada!', 'Revalide a sessão para continuar usando o sistema.', 'info')
+                if (withFailedAlert) swal('Sessão inválida ou expirada!', msgFailedAlert, 'info')
             }
         } else {
             throw new Error(JSON.stringify(response))
@@ -73,17 +73,17 @@ export function request(props, method, returnReduceKey, param = '', methodType =
         if (json.status < 0) {
             setValue(props, returnReduceKey, undefined)
 
-            if (withWarningModal) swal(json.message, undefined, 'warning')
+            if (withWarningAlert) swal(json.message, msgWarningAlert, 'warning')
 
             console.error(json.message)
         } else {
             setValue(props, returnReduceKey, json)
 
-            if (withSuccessedModal) swal(json.message, undefined, 'success')
+            if (withSuccessedAlert) swal(json.message, msgSuccessedAlert, 'success')
         }
     }).catch((error) => {
         setValue(props, returnReduceKey, undefined)
 
-        if (withErrorModal) swal(error.message, undefined, 'error')
+        if (withErrorAlert) swal(error.message, msgErrorAlert, 'error')
     })
 }

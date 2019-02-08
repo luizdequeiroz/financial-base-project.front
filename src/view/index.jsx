@@ -3,7 +3,7 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap'
 
 import FaSignOut from 'react-icons/lib/fa/sign-out'
 
-import Entry from './modules/users/entry'
+import Entry from './modules/entry'
 
 import { configure } from '../config/configurers'
 import { setValue, clearValues } from '../config/dispatchers'
@@ -66,7 +66,7 @@ class Index extends Component {
                         : undefined}
                 </Navbar>
                 <div className="container-fluid">
-                    {session ? children : <Entry />}
+                    {session ? <div style={{ marginTop: 80 }}>{children}</div> : <Entry />}
                 </div>
                 <Navbar fixedBottom fluid>
                     <div className="text-center">
@@ -80,4 +80,4 @@ class Index extends Component {
     }
 }
 
-export default configure('session')()(Index)
+export default configure({ responseKeys: ['session'], component: Index })
