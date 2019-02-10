@@ -9,19 +9,9 @@ const API = process.env.REACT_APP_API_DEVELOP
  * @param {any} value valor a ser aplicado na key especificada.
  */
 export function setValue(props, returnReduceKey, value) {
-    const { dispatch, responses } = props
-
-    responses[returnReduceKey] = value
-    dispatch({ type: 'GENERIC_RETURN', payload: { ...responses } })
-}
-
-/**
- * Função que limpa o reducer.
- */
-export function clearValues(props) {
     const { dispatch } = props
 
-    dispatch({ type: 'GENERIC_RETURN', payload: {} })
+    dispatch({ type: returnReduceKey, payload: value })
 }
 
 /**
@@ -61,7 +51,7 @@ export function request(props, method, returnReduceKey, param = '', methodType =
             else if (response.status === 401) {
                 if (window.location.hash === '#/') {
                     sessionStorage.clear()
-                    clearValues(props)
+                    setValue(props, 'session')
                 }
                 window.location.hash = '#'
                 if (withFailedAlert) swal('Sessão inválida ou expirada!', msgFailedAlert, 'info')
@@ -70,14 +60,12 @@ export function request(props, method, returnReduceKey, param = '', methodType =
             throw new Error(JSON.stringify(response))
         }
     }).then(json => {
+        setValue(props, returnReduceKey, json)
         if (json.status < 0) {
-            setValue(props, returnReduceKey, undefined)
-
             if (withWarningAlert) swal(json.message, msgWarningAlert, 'warning')
 
             console.error(json.message)
         } else {
-            setValue(props, returnReduceKey, json)
 
             if (withSuccessedAlert) swal(json.message, msgSuccessedAlert, 'success')
         }

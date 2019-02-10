@@ -5,8 +5,8 @@ import FaSignOut from 'react-icons/lib/fa/sign-out'
 
 import Entry from './modules/entry'
 
-import { configure } from '../config/configurers'
-import { setValue, clearValues } from '../config/dispatchers'
+import { setValue } from '../config/dispatchers'
+import { Default } from '../config/renders'
 
 class Index extends Component {
 
@@ -20,7 +20,7 @@ class Index extends Component {
 
     componentDidUpdate() {
 
-        const { responses: { session } } = this.props
+        const { session } = this.props
         if (session) {
             if (session.status === 16) {
                 sessionStorage.setItem('session', JSON.stringify(session))
@@ -30,14 +30,14 @@ class Index extends Component {
 
     logout() {
 
-        clearValues(this.props)
+        setValue(this.props, 'session', {})
         sessionStorage.clear()
         window.location.hash = '#/'
     }
 
     render() {
 
-        const { children, responses: { session } } = this.props
+        const { children, session: { data } } = this.props
 
         return (
             <div id="main" className="container-fluid">
@@ -51,7 +51,7 @@ class Index extends Component {
                                 BaseProj
                             </a>
                         </Navbar.Brand>
-                        {session ?
+                        {data ?
                             <div className="text-right" style={{ marginRight: 20 }}>
                                 <Nav className="hidden-lg hidden-md hidden-sm">
                                     <NavItem eventKey={2} href="#/" onClick={this.logout.bind(this)}><FaSignOut /> Sair</NavItem>
@@ -59,14 +59,14 @@ class Index extends Component {
                             </div>
                             : undefined}
                     </Navbar.Header>
-                    {session ?
+                    {data ?
                         <Nav pullRight className="hidden-xs">
                             <NavItem eventKey={2} href="#/" onClick={this.logout.bind(this)}><FaSignOut /> Sair</NavItem>
                         </Nav>
                         : undefined}
                 </Navbar>
                 <div className="container-fluid">
-                    {session ? <div style={{ marginTop: 80 }}>{children}</div> : <Entry />}
+                    {data ? <div style={{ marginTop: 80 }}>{children}</div> : <Entry />}
                 </div>
                 <Navbar fixedBottom fluid>
                     <div className="text-center">
@@ -80,4 +80,4 @@ class Index extends Component {
     }
 }
 
-export default configure({ responseKeys: ['session'], component: Index })
+export default Default('session')(Index)

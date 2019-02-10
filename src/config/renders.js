@@ -2,13 +2,22 @@ import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux'
 
-export function configure(...responseKeys) {
-    
+export function Default(...reducerKeys) {
     const selectState = state => {
-        let responses = {}
-        responseKeys.forEach(key => responses[key] = state.reducers.responses[key])
+        let reducers = {}
+        reducerKeys.forEach(key => reducers[key] = state.reducers.reducerKeys[key] || {})
+        return reducers
+    }
+
+    return (formComponent) => connect(selectState)(formComponent)
+}
+
+export function Form(...reducerKeys) {
+    const selectState = state => {
+        let reducers = {}
+        reducerKeys.forEach(key => reducers[key] = state.reducers.reducerKeys[key] || {})
         return {
-            responses
+            reducers
         }
     }
 

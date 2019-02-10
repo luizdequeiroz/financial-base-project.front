@@ -1,31 +1,16 @@
-import {
-    combineReducers
-} from 'redux'
-import { request } from '../dispatchers'
+import { combineReducers } from 'redux'
 
-const responses = (state = {}, action) => {
-    const {
-        props,
-        method,
-        returnReduceKey,
-        param,
-        methodType,
-        withSuccessedAlert,
-        msgSuccessedAlert,
-        withWarningAlert,
-        msgWarningAlert,
-        withFailedAlert,
-        msgFailedAlert,
-        withErrorAlert,
-        msgErrorAlert
-    } = action
+function reducerKeys(state = {}, action) {
 
     switch (action.type) {
-        case 'request':
-            request(props, method, returnReduceKey, param, methodType, withSuccessedAlert, msgSuccessedAlert, withWarningAlert, msgWarningAlert, withFailedAlert, msgFailedAlert, withErrorAlert, msgErrorAlert)
-            return action
-        case 'GENERIC_RETURN':
-            return action.payload
+        case 'session':
+        case 'clients':
+            const value = {}
+            value[action.type] = action.payload || {}
+            return {
+                ...state,
+                ...value
+            }
         default:
             return state
     }
@@ -35,6 +20,6 @@ const responses = (state = {}, action) => {
  * Importa os reducers
  */
 const storeApp = combineReducers({
-    responses
+    reducerKeys
 })
 export default storeApp
