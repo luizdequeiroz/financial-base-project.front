@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 
-function reducerKeys(state = {}, action) {
+const initialState = {}
+
+function reducerKeys(state = initialState, action) {
 
     switch (action.type) {
         case 'session':
@@ -11,6 +13,8 @@ function reducerKeys(state = {}, action) {
                 ...state,
                 ...value
             }
+        case 'clearAll':
+            return initialState
         default:
             return state
     }

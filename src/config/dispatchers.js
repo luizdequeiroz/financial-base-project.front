@@ -15,6 +15,15 @@ export function setValue(props, returnReduceKey, value) {
 }
 
 /**
+ * Função que limpa os valores no reducer.
+ */
+export function clearValues(props) {
+    const { dispatch } = props
+
+    dispatch({ type: 'clearAll' })
+}
+
+/**
  * Função de consumo de API que trás retorno para o reducer.
  * @param {any} props propriedades do componente que está a acionar a requisição.
  * @param {string} method assinatura do método da API que será concatenado com a url da API definida (sugestão: use alias).

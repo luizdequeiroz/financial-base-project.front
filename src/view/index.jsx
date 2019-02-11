@@ -5,7 +5,7 @@ import FaSignOut from 'react-icons/lib/fa/sign-out'
 
 import Entry from './modules/entry'
 
-import { setValue } from '../config/dispatchers'
+import { setValue, clearValues } from '../config/dispatchers'
 import { Default } from '../config/renders'
 
 class Index extends Component {
@@ -30,7 +30,7 @@ class Index extends Component {
 
     logout() {
 
-        setValue(this.props, 'session', {})
+        clearValues(this.props)
         sessionStorage.clear()
         window.location.hash = '#/'
     }
