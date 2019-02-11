@@ -20,7 +20,7 @@ class Input extends Component {
                     warning && <div className="h6 text-warning" style={{ marginTop: '-13px', marginBottom: '0px' }}>{warning}</div>
                 ))}
                 <div {...divInputProps}>
-                    {label ? <label className="input-group-addon">{label}</label> : undefined}
+                    {label && <label className="input-group-addon">{label}</label>}
                     <input className="form-control" {...input} {...inputProps} />
                 </div>
             </div>

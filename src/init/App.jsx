@@ -17,6 +17,7 @@ import './App.css'
 // PAGES
 import Menu from '../view/modules/entry/menu'
 import Clients from '../view/modules/clients/list'
+import ClientForm from '../view/modules/clients/form'
 
 const store = configureStore(routerMiddleware(hashHistory))
 
@@ -31,6 +32,7 @@ class App extends Component {
               <IndexRoute component={Menu} />
               <Route path="/menu" component={Menu} />
               <Route path="/clients" component={Clients} />
+              <Route path="/client/form" component={ClientForm} />
             </Route>
           </Router>
           {process.env.NODE_ENV !== 'production' ? <DevTools /> : ''}
