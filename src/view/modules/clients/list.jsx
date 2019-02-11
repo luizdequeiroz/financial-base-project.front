@@ -117,7 +117,7 @@ class Clients extends Component {
                     <input ref="searchClient" type="text" className="form-control" placeholder="Informe o Nome do cliente..." onKeyUp={e => this.searchTyping(e)} />
                     <span className="input-group-btn">
                         <button className="btn btn-default" onClick={() => this.requestByProperty(this.refs.searchClient.value)}><i className="fa fa-search" /> Buscar</button>
-                        <button className="btn btn-primary"><i className="fa fa-plus-circle" /> NOVO</button>
+                        <a className="btn btn-primary" href="#/client/form"><i className="fa fa-plus-circle" /> NOVO</a>
                     </span>
                 </div>
                 <hr />
