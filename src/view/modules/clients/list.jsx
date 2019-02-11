@@ -121,7 +121,7 @@ class Clients extends Component {
                     </span>
                 </div>
                 <hr />
-                <BootstrapTable keyField='id' data={clients.data || []} columns={columns} search noDataIndication="Não há clientes!" />
+                <BootstrapTable keyField='id' data={clients.data || []} columns={columns} search noDataIndication={clients.data ? "Não há clientes!" : <Loading />} />
             </fieldset >
         )
     }
