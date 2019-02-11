@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
-import { request } from '../../../config/dispatchers'
 import BootstrapTable from 'react-bootstrap-table-next'
 import { formatDate, maskTelefone, removerMaskTelefone } from '../../../config/functions'
 import { Default } from '../../../config/renders'
+import { get } from '../../../config/requesters'
+
+import Loading from '../../components/loading'
 
 const enter = 13
+const msgSearching = 'Pesquisando clientes...'
 
 class Clients extends Component {
 
     componentDidMount() {
 
-        request(this.props, 'company/clients/50', 'clients')
+        get(this.props, 'company/clients/50', 'clients', { withProccessAlert: true, msgProccessAlert: msgSearching })
     }
 
     applyFilterType(e) {
@@ -44,7 +47,7 @@ class Clients extends Component {
 
     requestByProperty(value) {
         value = this.refs.filterType.value === 'phone' ? removerMaskTelefone(value) : value
-        request(this.props, `company/property/${this.refs.filterType.value}/${value}/clients`, 'clients')
+        get(this.props, `company/property/${this.refs.filterType.value}/${value}/clients`, 'clients', { withProccessAlert: true, msgProccessAlert: msgSearching })
     }
 
     searchTyping(e) {
@@ -58,7 +61,7 @@ class Clients extends Component {
                 this.requestByProperty(value)
             }
         } else {
-            request(this.props, 'company/clients/50', 'clients')
+            get(this.props, 'company/clients/50', 'clients', { withProccessAlert: true, msgProccessAlert: msgSearching })
         }
     }
 
@@ -96,7 +99,7 @@ class Clients extends Component {
 
         return (
             <fieldset>
-                <legend>Lista de Clientes</legend>
+                <legend>Lista de Clientes <Loading /></legend>
                 <div className="input-group" style={{ padding: 0, border: 'none' }}>
                     <div className="input-group-addon" style={{ padding: 0, width: '175px' }}>
                         <div className="input-group">

@@ -35,7 +35,7 @@ export function clearValues(props) {
  * @param {boolean} withFailedAlert indica se a solicitação acionará um modal de falha quando a mesma falhar na API (erro tratado na API).
  * @param {boolean} withErrorAlert indica se a solicitação acionará um modal de erro quando a mesma errar por alguma razão ao comunicar-se com a API.
  */
-export function request(props, method, returnReduceKey, param = '', methodType = 'GET', withSuccessedAlert = false, msgSuccessedAlert, withWarningAlert = false, msgWarningAlert, withFailedAlert = false, msgFailedAlert = 'Revalide a sessão para continuar usando o sistema.', withErrorAlert = false, msgErrorAlert) {
+export function request(props, method, returnReduceKey, param = '', methodType = 'GET', withProccessAlert = false, msgProccessAlert, withSuccessedAlert = false, msgSuccessedAlert, withWarningAlert = false, msgWarningAlert, withFailedAlert = false, msgFailedAlert = 'Revalide a sessão para continuar usando o sistema.', withErrorAlert = false, msgErrorAlert) {
 
     var init = {
         method: methodType,
@@ -52,6 +52,8 @@ export function request(props, method, returnReduceKey, param = '', methodType =
 
     const requestKey = getRequestKey({ url, method: methodType, body: methodType === 'POST' ? JSON.stringify(param) : undefined });
     const dedupeOptions = { requestKey }
+
+    if (withProccessAlert) setValue(props, 'loading', { in: true, text: msgProccessAlert })
 
     fetchDedupe(url, init, dedupeOptions).then(response => {
         if (response.ok) {
@@ -78,9 +80,12 @@ export function request(props, method, returnReduceKey, param = '', methodType =
 
             if (withSuccessedAlert) swal(json.message, msgSuccessedAlert, 'success')
         }
+
+        if (withProccessAlert) setValue(props, 'loading', { in: false, text: '' })
     }).catch((error) => {
         setValue(props, returnReduceKey, undefined)
 
         if (withErrorAlert) swal(error.message, msgErrorAlert, 'error')
+        if (withProccessAlert) setValue(props, 'loading', { in: false, text: '' })
     })
 }

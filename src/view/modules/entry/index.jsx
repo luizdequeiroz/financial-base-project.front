@@ -7,20 +7,22 @@ import { post } from '../../../config/requesters'
 
 import FaArrowRight from 'react-icons/lib/fa/arrow-right'
 
+import Loading from '../../components/loading'
+
 function login(values, route, props) {
 
-    return post(props, 'entry/login', 'session', values, { withWarningAlert: true, msgWarningAlert: 'E-mail ou senha incorreto!' })
+    return post(props, 'entry/login', 'session', values, { withProccessAlert: true, msgProccessAlert: 'Autenticando...', withWarningAlert: true, msgWarningAlert: 'E-mail ou senha incorreto!' })
 }
 
 function validate(values) {
 
     const errors = {}
 
-    if(!values.email) {
+    if (!values.email) {
         errors.email = 'E-mail obrigatório.'
     }
 
-    if(!values.password) {
+    if (!values.password) {
         errors.password = 'Senha obrigatória.'
     }
 
@@ -35,7 +37,7 @@ class Entry extends Component {
             <div className="content-centered panel-form">
                 <div className="panel panel-default">
                     <div className="panel-heading">
-                        <h3 className="panel-title">Entrada</h3>
+                        <h3 className="panel-title">Entrada <Loading /></h3>
                     </div>
                     <div className="panel-body">
                         <form onSubmit={this.props.handleSubmit}>
@@ -54,7 +56,7 @@ class Entry extends Component {
                 </div>
             </div>
         )
-    }
+    }    
 }
 
 export default Form()(login, validate)(Entry)

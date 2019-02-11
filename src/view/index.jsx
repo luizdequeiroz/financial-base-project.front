@@ -8,6 +8,8 @@ import Entry from './modules/entry'
 import { setValue, clearValues } from '../config/dispatchers'
 import { Default } from '../config/renders'
 
+// import Loading from './components/loading'
+
 class Index extends Component {
 
     componentDidMount() {
@@ -27,18 +29,18 @@ class Index extends Component {
             }
         }
     }
-
+    
     logout() {
-
+        
         clearValues(this.props)
         sessionStorage.clear()
         window.location.hash = '#/'
     }
-
+    
     render() {
-
+        
         const { children, session: { data } } = this.props
-
+        
         return (
             <div id="main" className="container-fluid">
                 <Navbar fixedTop fluid collapseOnSelect>
@@ -48,7 +50,7 @@ class Index extends Component {
                                 <span>
                                     <img alt="presentation" src="images\logo.png" width="30px" />
                                 </span>
-                                BaseProj
+                                BaseProj {/* <Loading /> */}
                             </a>
                         </Navbar.Brand>
                         {data ?
@@ -74,7 +76,7 @@ class Index extends Component {
                             <p>BaseProj &copy; Todos os direitos reservados.<br /><span className="badge">Versão 1.0</span></p>
                         </div>
                     </div>
-                </Navbar>
+                </Navbar>              
             </div>
         )
     }
