@@ -14,7 +14,7 @@ class Clients extends Component {
 
     componentDidMount() {
 
-        get(this.props, 'company/clients/50', 'clients', { withProccessAlert: true, msgProccessAlert: msgSearching })
+        get(this.props, 'company/clients/50', 'clients', { withProccess: true, msgProccess: msgSearching })
     }
 
     applyFilterType(e) {

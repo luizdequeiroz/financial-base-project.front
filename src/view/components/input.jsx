@@ -4,8 +4,8 @@ class Input extends Component {
 
     render() {
 
-        const { input, value, defaultValue, label, type, placeholder, meta: { touched, error, warning } } = this.props
-        const inputProps = { value, defaultValue, type, placeholder }
+        const { input, label, type, placeholder, meta: { touched, error, warning } } = this.props
+        const inputProps = { type, placeholder }
         const divInputProps = label ? {
             className: `input-group`
         } : undefined

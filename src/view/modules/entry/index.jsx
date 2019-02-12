@@ -11,7 +11,7 @@ import Loading from '../../components/loading'
 
 function login(values, route, props) {
 
-    return post(props, 'entry/login', 'session', values, { withProccessAlert: true, msgProccessAlert: 'Autenticando...', withWarningAlert: true, msgWarningAlert: 'E-mail ou senha incorreto!', withErrorAlert: true, msgErrorAlert: 'Erro de comunicação com serviço de autenticação.' })
+    return post(props, 'entry/login', 'session', values, { withProccess: true, msgProccess: 'Autenticando...', withWarningAlert: true, msgWarningAlert: 'E-mail ou senha incorreto!', withErrorAlert: true, msgErrorAlert: 'Erro de comunicação com serviço de autenticação.' })
 }
 
 function validate(values) {
@@ -49,7 +49,7 @@ class Entry extends Component {
                                     <Field name="password" component={Input} type="password" placeholder="Senha" />
                                 </div>
                                 <button type="submit" className="btn btn-success">Entrar</button>
-                                <a href="#/" className="btn btn-link" style={{ float: "right" }}>Cadastrar <FaArrowRight /></a>
+                                {/* <a href="#/" className="btn btn-link" style={{ float: "right" }}>Cadastrar <FaArrowRight /></a> */}
                             </fieldset>
                         </form>
                     </div>
