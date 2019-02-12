@@ -15,6 +15,17 @@ function saveClient(values, route, props) {
     else return post(props, 'company/client', 'client', values, { withProccess: true, msgProccess: 'Salvando dados do cliente...', withSuccessedAlert: true })
 }
 
+function validate(values) {
+
+    const errors = {}
+
+    if (!values.name) {
+        errors.name = 'Nome do cliente obrigatório.'
+    }
+
+    return errors
+}
+
 class ClientForm extends Component {
 
     componentDidMount() {
@@ -93,4 +104,4 @@ class ClientForm extends Component {
     }
 }
 
-export default Form('client')(saveClient)(ClientForm)
+export default Form('client')(saveClient, validate)(ClientForm)

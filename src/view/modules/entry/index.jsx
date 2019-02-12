@@ -5,7 +5,7 @@ import Input from '../../components/input'
 import { Form } from '../../../config/renders'
 import { post } from '../../../config/requesters'
 
-import FaArrowRight from 'react-icons/lib/fa/arrow-right'
+// import FaArrowRight from 'react-icons/lib/fa/arrow-right'
 
 import Loading from '../../components/loading'
 

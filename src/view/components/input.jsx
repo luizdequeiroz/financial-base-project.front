@@ -1,5 +1,15 @@
 import React, { Component } from 'react'
 
+const labelStyleError = {
+    position: 'absolute',
+    top: -25
+}
+
+const inputStyleError = {
+    border: 'solid 1px red', 
+    borderRadius: '4px'
+}
+
 class Input extends Component {
 
     render() {
@@ -10,14 +20,14 @@ class Input extends Component {
             className: `input-group`
         } : undefined
 
-        input.style = touched && error ? { border: 'solid 1px red', borderRadius: '4px' } : undefined
+        input.style = touched && error ? inputStyleError : undefined
 
         return (
             <div className="form-group">
                 {touched && ((
-                    error && <div className="h6 text-danger" style={{ marginTop: '-13px', marginBottom: '0px' }}>{error}</div>
+                    error && <div className="h6 text-danger" style={labelStyleError}>{error}</div>
                 ) || (
-                    warning && <div className="h6 text-warning" style={{ marginTop: '-13px', marginBottom: '0px' }}>{warning}</div>
+                    warning && <div className="h6 text-warning" style={labelStyleError}>{warning}</div>
                 ))}
                 <div {...divInputProps}>
                     {label && <label className="input-group-addon">{label}</label>}
