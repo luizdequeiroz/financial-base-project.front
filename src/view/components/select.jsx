@@ -4,7 +4,7 @@ export class Select extends Component {
 
     render() {
 
-        const { options, firstOption, input, defaultValue, label, meta: { touched, error, warning } } = this.props
+        const { value, children, options, firstOption, input, defaultValue, label, meta: { touched, error, warning } } = this.props
         const inputProps = { defaultValue }
         const divInputProps = label ? {
             className: `input-group`
@@ -32,7 +32,7 @@ export class Select extends Component {
         )
     }
 }
-SysSelect.defaultProps = {
+Select.defaultProps = {
     options: [],
     firstOption: 'Selecione'
 }

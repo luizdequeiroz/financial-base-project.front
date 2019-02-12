@@ -59,4 +59,4 @@ class Entry extends Component {
     }    
 }
 
-export default Form()(login, validate)(Entry)
+export default Form()(login)(validate)(Entry)

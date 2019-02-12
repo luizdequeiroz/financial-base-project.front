@@ -88,4 +88,6 @@ export function request(props, method, returnReduceKey, param = '', methodType =
         if (withErrorAlert) swal(msgErrorAlert, 'Entre em contato com o suporte.', 'error')
         if (withProccess) setValue(props, 'loading', { in: false, text: '' })
     })
+
+    return { type: 'request', method, returnReduceKey, param, methodType, withProccess, msgProccess, withSuccessedAlert, msgSuccessedAlert, withWarningAlert, msgWarningAlert, withFailedAlert, msgFailedAlert, withErrorAlert, msgErrorAlert }
 }
