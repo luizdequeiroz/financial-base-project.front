@@ -82,10 +82,10 @@ export function request(props, method, returnReduceKey, param = '', methodType =
         }
 
         if (withProccessAlert) setValue(props, 'loading', { in: false, text: '' })
-    }).catch((error) => {
+    }).catch(() => {
         setValue(props, returnReduceKey, undefined)
 
-        if (withErrorAlert) swal(error.message, msgErrorAlert, 'error')
+        if (withErrorAlert) swal(msgErrorAlert, 'Entre em contato com o suporte.', 'error')
         if (withProccessAlert) setValue(props, 'loading', { in: false, text: '' })
     })
 }

@@ -8,6 +8,7 @@ function reducerKeys(state = initialState, action) {
         case 'session':
         case 'loading':
         case 'clients':
+        case 'client':
             const value = {}
             value[action.type] = action.payload || {}
             return {

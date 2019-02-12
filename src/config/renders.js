@@ -16,9 +16,7 @@ export function Form(...reducerKeys) {
     const selectState = state => {
         let reducers = {}
         reducerKeys.forEach(key => reducers[key] = state.reducers.reducerKeys[key] || {})
-        return {
-            reducers
-        }
+        return reducers
     }
 
     return (onSubmit = undefined, validate = undefined, warns = undefined) => {

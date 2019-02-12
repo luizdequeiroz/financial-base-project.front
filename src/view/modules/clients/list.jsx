@@ -3,6 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next'
 import { formatDate, maskTelefone, removerMaskTelefone } from '../../../config/functions'
 import { Default } from '../../../config/renders'
 import { get } from '../../../config/requesters'
+import { setValue } from '../../../config/dispatchers'
 
 import Loading from '../../components/loading'
 
@@ -66,7 +67,8 @@ class Clients extends Component {
     }
 
     render() {
-        const { clients } = this.props
+        const { props } = this
+        const { clients } = props
 
         const columns = [{
             dataField: 'id',
@@ -82,7 +84,7 @@ class Clients extends Component {
             formatter: (cell) => formatDate(cell)
         }, {
             dataField: 'phone',
-            text: 'Contato',
+            text: 'Fone',
             formatter: (cell) => maskTelefone(cell)
         }, {
             dataField: 'email',
@@ -95,7 +97,16 @@ class Clients extends Component {
             dataField: 'type',
             text: 'Tipo',
             sort: true
+        }, {
+            dataField: 'actions',
+            text: 'Ações',
+            headerStyle: { width: '60px' }
         }]
+
+        const _clients = (clients.data || []).map(client => ({
+            ...client,
+            actions: <a className="btn btn-primary btn-xs" href="#/client/form" onClick={() => setValue(props, 'client', client)}>Editar</a>
+        }))
 
         return (
             <fieldset>
@@ -107,7 +118,7 @@ class Clients extends Component {
                                 <option value="id">Código</option>
                                 <option value="name" selected>Nome</option>
                                 <option value="birthDate">Data de Nascimento</option>
-                                <option value="phone">Contato</option>
+                                <option value="phone">Telefone/Celular</option>
                                 <option value="email">E-mail</option>
                                 <option value="bank">Banco</option>
                                 <option value="type">Tipo</option>
@@ -121,7 +132,7 @@ class Clients extends Component {
                     </span>
                 </div>
                 <hr />
-                <BootstrapTable keyField='id' data={clients.data || []} columns={columns} search noDataIndication={clients.data ? "Não há clientes!" : <Loading />} />
+                <BootstrapTable keyField='id' data={_clients} columns={columns} search noDataIndication={clients.data ? "Não há clientes!" : <Loading />} />
             </fieldset >
         )
     }

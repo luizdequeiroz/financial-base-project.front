@@ -11,7 +11,7 @@ import Loading from '../../components/loading'
 
 function login(values, route, props) {
 
-    return post(props, 'entry/login', 'session', values, { withProccessAlert: true, msgProccessAlert: 'Autenticando...', withWarningAlert: true, msgWarningAlert: 'E-mail ou senha incorreto!' })
+    return post(props, 'entry/login', 'session', values, { withProccessAlert: true, msgProccessAlert: 'Autenticando...', withWarningAlert: true, msgWarningAlert: 'E-mail ou senha incorreto!', withErrorAlert: true, msgErrorAlert: 'Erro de comunicação com serviço de autenticação.' })
 }
 
 function validate(values) {
