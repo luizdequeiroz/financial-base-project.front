@@ -6,7 +6,7 @@ import FaSignOut from 'react-icons/lib/fa/sign-out'
 import Entry from './modules/entry'
 
 import { setValue, clearValues } from '../config/dispatchers'
-import { Default } from '../config/renders'
+import { bindDefault } from '../config/renders'
 
 // import Loading from './components/loading'
 
@@ -29,20 +29,20 @@ class Index extends Component {
             }
         }
     }
-    
+
     logout() {
-        
+
         clearValues(this.props)
         sessionStorage.clear()
         window.location.hash = '#/'
     }
-    
+
     render() {
-        
+
         const { children, session: { data } } = this.props
-        
+
         return (
-            <div id="main" className="container-fluid">
+            <div id="main" className="container">
                 <Navbar fixedTop fluid collapseOnSelect>
                     <Navbar.Header>
                         <Navbar.Brand>
@@ -68,7 +68,10 @@ class Index extends Component {
                         : undefined}
                 </Navbar>
                 <div className="container-fluid">
-                    {data ? <div style={{ marginTop: 80 }}>{children}</div> : <Entry />}
+                    {data ?
+                        <div className="panel" style={{ paddingTop: 80, paddingBottom: 80 }}>
+                            <div className="container-fluid">{children}</div>
+                        </div> : <Entry />}
                 </div>
                 <Navbar fixedBottom fluid>
                     <div className="text-center">
@@ -76,10 +79,10 @@ class Index extends Component {
                             <p>BaseProj &copy; Todos os direitos reservados.<br /><span className="badge">Versão 1.0</span></p>
                         </div>
                     </div>
-                </Navbar>              
+                </Navbar>
             </div>
         )
     }
 }
 
-export default Default('session')(Index)
+export default bindDefault('session')(Index)

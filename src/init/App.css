@@ -48,9 +48,6 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
-
-  /* configurações page */
-  margin-top: 80px;
 }
 
 .flex-menu-item {

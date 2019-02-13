@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Field, initialize } from 'redux-form'
 
 import { put, post } from '../../../config/requesters'
-import { Form } from '../../../config/renders'
+import { bindReduxForm } from '../../../config/renders'
 import Input from '../../components/input'
 import Select from '../../components/select'
 
@@ -49,7 +49,7 @@ class ClientForm extends Component {
         const { client, pristine, submitting } = this.props
 
         return (
-            <fieldset className="container">
+            <fieldset>
                 <legend>{(client.name || (client.data && client.data.name)) || 'Novo cliente'} <Loading /></legend>
                 <form onSubmit={this.props.handleSubmit}>
                     <div className="col-md-6">
@@ -111,4 +111,4 @@ class ClientForm extends Component {
     }
 }
 
-export default Form('client')(saveClient)(validate)(ClientForm)
+export default bindReduxForm('client')(saveClient)(validate)(ClientForm)

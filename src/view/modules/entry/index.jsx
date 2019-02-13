@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Field } from 'redux-form'
 
 import Input from '../../components/input'
-import { Form } from '../../../config/renders'
+import { bindReduxForm } from '../../../config/renders'
 import { post } from '../../../config/requesters'
 
 // import FaArrowRight from 'react-icons/lib/fa/arrow-right'
@@ -59,4 +59,4 @@ class Entry extends Component {
     }    
 }
 
-export default Form()(login)(validate)(Entry)
+export default bindReduxForm()(login)(validate)(Entry)

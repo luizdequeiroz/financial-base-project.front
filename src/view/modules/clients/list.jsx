@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import BootstrapTable from 'react-bootstrap-table-next'
 import { formatDate, maskTelefone, removerMaskTelefone } from '../../../config/functions'
-import { Default } from '../../../config/renders'
+import { bindDefault } from '../../../config/renders'
 import { get } from '../../../config/requesters'
 import { setValue } from '../../../config/dispatchers'
 
@@ -138,4 +138,4 @@ class Clients extends Component {
     }
 }
 
-export default Default('clients')(Clients)
+export default bindDefault('clients')(Clients)
