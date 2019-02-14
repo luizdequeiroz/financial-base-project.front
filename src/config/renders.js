@@ -21,7 +21,7 @@ export function bindReduxForm(...reducerKeys) {
 
     return (...actions) => {
         let _actions = {}
-        actions.forEach(action => _actions[_actions.toSource() === "({})" ? 'onSubmit' : action.name] = action)
+        actions.forEach(action => _actions[JSON.stringify(_actions) === "{}" ? 'onSubmit' : action.name] = action)
         const selectDispatch = dispatch => bindActionCreators(_actions, dispatch)
 
         return (validate = undefined, warns = undefined) => {

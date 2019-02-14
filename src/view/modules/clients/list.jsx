@@ -10,6 +10,8 @@ import Loading from '../../components/loading'
 const enter = 13
 const msgSearching = 'Pesquisando clientes...'
 
+const tipos = require('./tipos.json')
+
 class Clients extends Component {
 
     componentDidMount() {
@@ -81,11 +83,11 @@ class Clients extends Component {
         }, {
             dataField: 'birthDate',
             text: 'Data de Nascimento',
-            formatter: (cell) => formatDate(cell)
+            formatter: cell => formatDate(cell)
         }, {
             dataField: 'phone',
             text: 'Fone',
-            formatter: (cell) => maskTelefone(cell)
+            formatter: cell => maskTelefone(cell)
         }, {
             dataField: 'email',
             text: 'E-mail'
@@ -96,7 +98,8 @@ class Clients extends Component {
         }, {
             dataField: 'type',
             text: 'Tipo',
-            sort: true
+            sort: true,
+            formatter: cell => tipos.filter(tipo => tipo.value === cell)[0].text
         }, {
             dataField: 'actions',
             text: 'Ações',
