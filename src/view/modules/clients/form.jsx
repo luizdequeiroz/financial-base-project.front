@@ -27,6 +27,21 @@ function validate(values) {
     if (!values.name) {
         errors.name = 'Nome do cliente obrigatório.'
     }
+    if (!values.birthDate) {
+        errors.birthDate = 'Data de nascimento obrigatória.'
+    }
+    if (!values.phone) {
+        errors.phone = 'Telefone/Celular do cliente obrigatório.'
+    }
+    if (!values.email) {
+        errors.email = 'E-mail do cliente obrigatório.'
+    }
+    if (!values.bank) {
+        errors.bank = 'Banco do cliente obrigatório.'
+    }
+    if (!values.type) {
+        errors.type = 'Tipo de cliente obrigatório.'
+    }
 
     return errors
 }
@@ -37,7 +52,7 @@ class ClientForm extends Component {
         const { dispatch, form, client } = this.props
 
         client.birthDate = client.birthDate && client.birthDate.substring(0, 10)
-        
+
         dispatch(initialize(form, client))
     }
 

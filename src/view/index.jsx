@@ -50,7 +50,7 @@ class Index extends Component {
                                 <span>
                                     <img alt="presentation" src="images\logo.png" width="30px" />
                                 </span>
-                                BaseProj {/* <Loading /> */}
+                                &nbsp;CL Promotora {/* <Loading /> */}
                             </a>
                         </Navbar.Brand>
                         {data ?
@@ -76,7 +76,7 @@ class Index extends Component {
                 <Navbar fixedBottom fluid>
                     <div className="text-center">
                         <div className="navbar-footer">
-                            <p>BaseProj &copy; Todos os direitos reservados.<br /><span className="badge">Versão 1.0</span></p>
+                            <p>CL Promotora &copy; Todos os direitos reservados.<br /><span className="badge">Versão 1.0</span></p>
                         </div>
                     </div>
                 </Navbar>
