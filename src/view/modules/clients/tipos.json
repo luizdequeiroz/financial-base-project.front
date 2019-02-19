@@ -1,5 +1,9 @@
 [
     {
+        "value": 0,
+        "text": "Não informado"
+    },
+    {
         "value": 1,
         "text": "INSS"
     },
