@@ -9,6 +9,7 @@ function reducerKeys(state = initialState, action) {
         case 'loading':
         case 'clients':
         case 'client':
+        case 'csvFile':
             const value = {}
             value[action.type] = action.payload || {}
             return {

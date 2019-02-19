@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import BootstrapTable from 'react-bootstrap-table-next'
 import { formatDate, maskTelefone, removerMaskTelefone } from '../../../config/functions'
 import { bindDefault } from '../../../config/renders'
-import { get } from '../../../config/requesters'
+import { get, post } from '../../../config/requesters'
 import { setValue } from '../../../config/dispatchers'
 
 import Loading from '../../components/loading'
+import CsvInput from '../../components/csvinput'
 
 const enter = 13
 const msgSearching = 'Pesquisando clientes...'
@@ -13,6 +14,10 @@ const msgSearching = 'Pesquisando clientes...'
 const tipos = require('./tipos.json')
 
 class Clients extends Component {
+
+    state = {
+        importation: false
+    }
 
     componentDidMount() {
 
@@ -50,7 +55,7 @@ class Clients extends Component {
 
     requestByProperty(value) {
         value = this.refs.filterType.value === 'phone' ? removerMaskTelefone(value) : value
-        get(this.props, `company/property/${this.refs.filterType.value}/${value}/clients`, 'clients', { withProccessAlert: true, msgProccessAlert: msgSearching })
+        get(this.props, `company/property/${this.refs.filterType.value}/${value}/clients`, 'clients', { withProccess: true, msgProccess: msgSearching })
     }
 
     searchTyping(e) {
@@ -59,18 +64,26 @@ class Clients extends Component {
             if (e.keyCode !== enter) {
                 if (this.refs.filterType.value === 'phone') {
                     this.refs.searchClient.value = maskTelefone(value)
-                }   
-            } else {                
+                }
+            } else {
                 this.requestByProperty(value)
             }
         } else {
-            get(this.props, 'company/clients/50', 'clients', { withProccessAlert: true, msgProccessAlert: msgSearching })
+            get(this.props, 'company/clients/50', 'clients', { withProccess: true, msgProccess: msgSearching })
         }
+    }
+
+    importCsvFile() {
+        const { props } = this
+        const { csvFile } = props
+
+        post(props, 'company/import/clients', 'clients', csvFile, { withProccess: true, msgProccess: 'Importando arquivo...' })
     }
 
     render() {
         const { props } = this
         const { clients } = props
+        const { importation } = this.state
 
         const columns = [{
             dataField: 'id',
@@ -113,7 +126,12 @@ class Clients extends Component {
 
         return (
             <fieldset>
-                <legend>Lista de Clientes <Loading /></legend>
+                <legend>
+                    <div style={{ float: 'left' }}>Lista de Clientes <Loading /></div>
+                    <div style={{ float: 'right' }} hidden={importation}>
+                        <button className="btn btn-success btn-xs" onClick={() => this.setState({ importation: true })}><i className="fa fa-upload" /> Importar CSV</button>
+                    </div>
+                </legend>
                 <div className="input-group" style={{ padding: 0, border: 'none' }}>
                     <div className="input-group-addon" style={{ padding: 0, width: '175px' }}>
                         <div className="input-group">
@@ -134,11 +152,23 @@ class Clients extends Component {
                         <a className="btn btn-primary" href="#/client/form"><i className="fa fa-plus-circle" /> NOVO</a>
                     </span>
                 </div>
-                <hr />
+                {importation ?
+                    <div>
+                        <hr />
+                        <CsvInput csvFileReduceKey='csvFile' />
+                        <div className="text-center">
+                            <div className="btn-group btn-group-xs">
+                                <button className="btn btn-warning" onClick={() => this.setState({ importation: false })}><i className="fa fa-close" /> Cancelar</button>
+                                <button className="btn btn-success" onClick={this.importCsvFile.bind(this)}><i className="fa fa-upload" /> Importar</button>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                    : <hr />}
                 <BootstrapTable keyField='id' data={_clients} columns={columns} search noDataIndication={clients.data ? "Não há clientes!" : <Loading />} />
-            </fieldset >
+            </fieldset>
         )
     }
 }
 
-export default bindDefault('clients')(Clients)
+export default bindDefault('clients', 'csvFile')(Clients)
