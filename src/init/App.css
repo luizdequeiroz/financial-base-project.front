@@ -73,3 +73,19 @@
     width: 90%;
   }
 }
+
+.csvFileInput {
+
+  border: dotted 1px black;
+  border-radius: 4px;
+  height: 56px;
+  text-align: center;
+}
+
+.csvFileInput:hover {
+  border: dashed 1px blue;
+}
+
+.csvFileInput div {
+  height: 54px;
+}
