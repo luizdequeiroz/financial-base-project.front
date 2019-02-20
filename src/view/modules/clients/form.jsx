@@ -103,7 +103,7 @@ class ClientForm extends Component {
                     </div>
                     <div className="col-md-4">
                         <Field name="type" label="Tipo" component={Select} type="text" placeholder="Informe o tipo do cliente">
-                            {tipos.client.map(tipo => <option value={tipo.value}>{tipo.text}</option>)}
+                            {tipos.client.map(c => <option value={c.value}>{c.text}</option>)}
                         </Field>
                     </div>
                     <div className="col-md-4">
@@ -113,7 +113,10 @@ class ClientForm extends Component {
                         <Field name="siapNumber" label="Nº SIAP" component={Input} type="text" placeholder="Informe o número do SIAP" />
                     </div>
                     <div className="col-md-4">
-                        <Field name="bank" label="Banco" component={Input} type="text" placeholder="Informe o banco do cliente" />
+                        <Field name="bank" label="Banco" component={Input} type="text" placeholder="Informe o banco do cliente" list="bankList" />
+                        <datalist id="bankList">
+                            {tipos.bank.map(b => <option>{b.text}</option>)}
+                        </datalist>
                     </div>
                     <div className="col-md-4">
                         <Field name="agency" label="Agência" component={Input} type="text" placeholder="Informe a agência bancária" />
