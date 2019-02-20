@@ -8,6 +8,8 @@ import { setValue } from '../../../config/dispatchers'
 import Loading from '../../components/loading'
 import CsvInput from '../../components/csvinput'
 
+import ClientView from './view'
+
 const enter = 13
 const msgSearching = 'Pesquisando clientes...'
 
@@ -76,9 +78,11 @@ class Clients extends Component {
     importCsvFile() {
         const { props } = this
         const { csvFile } = props
-debugger
+
         post(props, 'company/import/clients', 'clients', csvFile, { withProccess: true, msgProccess: 'Importando arquivo...' })
     }
+    
+    expandRow = row => <ClientView client={row} complement />
 
     render() {
         const { props } = this
@@ -112,7 +116,7 @@ debugger
             dataField: 'type',
             text: 'Tipo',
             sort: true,
-            formatter: cell => tipos.client.filter(tipo => tipo.value === cell)[0].text
+            formatter: cell => tipos.client.filter(c => c.value === cell)[0].text
         }, {
             dataField: 'actions',
             text: 'Ações',
@@ -165,7 +169,7 @@ debugger
                         <hr />
                     </div>
                     : <hr />}
-                <BootstrapTable keyField='id' data={_clients} columns={columns} search noDataIndication={clients.data ? "Não há clientes!" : <Loading />} />
+                <BootstrapTable expandRow={{ renderer: this.expandRow }} keyField='id' data={_clients} columns={columns} search noDataIndication={clients.data ? "Não há clientes!" : <Loading />} />
             </fieldset>
         )
     }
