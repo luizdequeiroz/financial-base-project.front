@@ -42,5 +42,45 @@
             "value": 6,
             "text": "Portabilidade"
         }
+    ],
+    "bank": [
+        {
+            "value": 1,
+            "text": "Daycoval"
+        },
+        {
+            "value": 2,
+            "text": "Panamericano"
+        },
+        {
+            "value": 3,
+            "text": "CCB"
+        },
+        {
+            "value": 4,
+            "text": "Banco do Brasil"
+        },
+        {
+            "value": 5,
+            "text": "Itaú"
+        },
+        {
+            "value": 6,
+            "text": "BMG"
+        }
+    ],
+    "status": [
+        {
+            "value": 0,
+            "text": "Em análise"
+        },
+        {
+            "value": 1,
+            "text": "Aprovado"
+        },
+        {
+            "value": 2,
+            "text": "Reprovado"
+        }
     ]
 }
