@@ -76,7 +76,7 @@ class Clients extends Component {
     importCsvFile() {
         const { props } = this
         const { csvFile } = props
-
+debugger
         post(props, 'company/import/clients', 'clients', csvFile, { withProccess: true, msgProccess: 'Importando arquivo...' })
     }
 
@@ -99,8 +99,8 @@ class Clients extends Component {
             formatter: cell => formatDate(cell)
         }, {
             dataField: 'phone',
-            text: 'Fone',
-            formatter: cell => maskTelefone(cell)
+            text: 'Telefone/Celular',
+            formatter: (cell, row) => (cell ? maskTelefone(cell) + (row.cell ? " | " : "") : "") + (row.cell ? maskTelefone(row.cell) : "")
         }, {
             dataField: 'email',
             text: 'E-mail'
@@ -112,7 +112,7 @@ class Clients extends Component {
             dataField: 'type',
             text: 'Tipo',
             sort: true,
-            formatter: cell => tipos.filter(tipo => tipo.value === cell)[0].text
+            formatter: cell => tipos.client.filter(tipo => tipo.value === cell)[0].text
         }, {
             dataField: 'actions',
             text: 'Ações',

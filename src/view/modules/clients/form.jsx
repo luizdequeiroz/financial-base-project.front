@@ -30,8 +30,8 @@ function validate(values) {
     if (!values.birthDate) {
         errors.birthDate = 'Data de nascimento obrigatória.'
     }
-    if (!values.phone) {
-        errors.phone = 'Telefone/Celular do cliente obrigatório.'
+    if (!values.cell) {
+        errors.cell = 'Celular do cliente obrigatório.'
     }
     if (!values.email) {
         errors.email = 'E-mail do cliente obrigatório.'
@@ -39,9 +39,12 @@ function validate(values) {
     if (!values.bank) {
         errors.bank = 'Banco do cliente obrigatório.'
     }
-    if (!values.type) {
-        errors.type = 'Tipo de cliente obrigatório.'
-    }
+    //if (values.type === "1" && !values.benefitNumber) {
+    //    errors.benefitNumber = 'O número do benefício é obrigatório para cliente INSS.'
+    //}
+    //if (values.type === "2" && !values.siapNumber) {
+    //    errors.siapNumber = 'O número do SIAP é obrigatório para cliente Federal.'
+    //}
 
     return errors
 }
@@ -81,42 +84,48 @@ class ClientForm extends Component {
                         <Field name="cpf" label="CPF" component={Input} type="text" placeholder="Informe o CPF do cliente" normalize={maskCPF} />
                     </div>
                     <div className="col-md-4">
-                        <Field name="type" label="Tipo" component={Select} type="text" placeholder="Informe o Tipo do cliente">
-                            {tipos.map(tipo => <option value={tipo.value}>{tipo.text}</option>)}
+                        <Field name="birthDate" label="Data de Nascimento" component={Input} type="date" placeholder="Informe a data de nascimento do cliente" />
+                    </div>
+                    <div className="col-md-4">
+                        <Field name="phone" label="Telefone" component={Input} type="text" placeholder="Informe o telefone" normalize={maskTelefone} />
+                    </div>
+                    <div className="col-md-4">
+                        <Field name="cell" label="Celular" component={Input} type="text" placeholder="Informe o celular" normalize={maskTelefone} />
+                    </div>
+                    <div className="col-md-4">
+                        <Field name="email" label="E-mail" component={Input} type="email" placeholder="Informe o e-mail do cliente" />
+                    </div>
+                    <div className="col-md-4">
+                        <Field name="registration" label="Matrícula" component={Input} type="text" placeholder="Informe a matrícula" />
+                    </div>
+                    <div className="col-md-4">
+                        <Field name="portalPassword" label="Senha" component={Input} type="text" placeholder="Informe a senha do portal" />
+                    </div>
+                    <div className="col-md-4">
+                        <Field name="type" label="Tipo" component={Select} type="text" placeholder="Informe o tipo do cliente">
+                            {tipos.client.map(tipo => <option value={tipo.value}>{tipo.text}</option>)}
                         </Field>
                     </div>
                     <div className="col-md-4">
-                        <Field name="registration" label="Matrícula" component={Input} type="text" placeholder="Informe a Matrícula do cliente" />
+                        <Field name="benefitNumber" label="Nº Benefício" component={Input} type="text" placeholder="Informe o número do benefício" />
                     </div>
                     <div className="col-md-4">
-                        <Field name="birthDate" label="Data de Nascimento" component={Input} type="date" placeholder="Informe a Data de nascimento do cliente" />
+                        <Field name="siapNumber" label="Nº SIAP" component={Input} type="text" placeholder="Informe o número do SIAP" />
                     </div>
                     <div className="col-md-4">
-                        <Field name="phone" label="Fone" component={Input} type="text" placeholder="Informe o Telefone/Celular" normalize={maskTelefone} />
+                        <Field name="bank" label="Banco" component={Input} type="text" placeholder="Informe o banco do cliente" />
                     </div>
                     <div className="col-md-4">
-                        <Field name="email" label="E-mail" component={Input} type="email" placeholder="Informe o E-mail do cliente" />
-                    </div>
-                    <div className="col-md-5">
-                        <Field name="portalRegistration" label="Cadastro do Portal" component={Input} type="text" placeholder="Informe o Cadastro do portal do cliente" />
-                    </div>
-                    <div className="col-md-5">
-                        <Field name="portalPassword" label="Senha do Portal" component={Input} type="text" placeholder="Informe a Senha do portal do cliente" />
-                    </div>
-                    <div className="col-md-5">
-                        <Field name="benefitNumber" label="Número do Benefício" component={Input} type="text" placeholder="Informe o Número do benefício do cliente" />
+                        <Field name="agency" label="Agência" component={Input} type="text" placeholder="Informe a agência bancária" />
                     </div>
                     <div className="col-md-4">
-                        <Field name="bank" label="Banco" component={Input} type="text" placeholder="Informe o Banco do cliente" />
+                        <Field name="account" label="Conta Bancária" component={Input} type="text" placeholder="Informe a conta bancária" />
                     </div>
                     <div className="col-md-4">
-                        <Field name="agency" label="Agência" component={Input} type="text" placeholder="Informe a Agência do cliente" />
+                        <Field name="op" label="Op. da Conta" component={Input} type="text" placeholder="Informe a operação da conta" />
                     </div>
-                    <div className="col-md-4">
-                        <Field name="account" label="Conta Bancária" component={Input} type="text" placeholder="Informe a Conta do cliente" />
-                    </div>
-                    <div className="col-md-4">
-                        <Field name="op" label="Operação da Conta" component={Input} type="text" placeholder="Informe a Operação da conta do cliente" />
+                    <div className="col-md-6">
+                        <Field name="observation" label="Observação" component={Input} type="textarea" placeholder="Observações sobre o cliente..." />
                     </div>
                     <div className="text-right col-md-12">
                         <a className="btn btn-warning" href="#/clients">Cancelar</a>&nbsp;

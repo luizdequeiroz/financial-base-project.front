@@ -22,6 +22,8 @@ class Input extends Component {
 
         input.style = touched && error ? inputStyleError : undefined
 
+        const theInput = type === "textarea" ? <textarea className="form-control" {...input} {...inputProps}></textarea> : <input className="form-control" {...input} {...inputProps} />
+
         return (
             <div className="form-group">
                 {touched && ((
@@ -31,7 +33,7 @@ class Input extends Component {
                 ))}
                 <div {...divInputProps}>
                     {label && <label className="input-group-addon">{label}</label>}
-                    <input className="form-control" {...input} {...inputProps} />
+                    {theInput}
                 </div>
             </div>
         )

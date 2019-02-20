@@ -1,22 +1,46 @@
-[
-    {
-        "value": 0,
-        "text": "Não informado"
-    },
-    {
-        "value": 1,
-        "text": "INSS"
-    },
-    {
-        "value": 2,
-        "text": "Federal"
-    },
-    {
-        "value": 3,
-        "text": "Prefeitura"
-    },
-    {
-        "value": 4,
-        "text": "CDC"
-    }
-]
+{
+    "client": [
+        {
+            "value": 0,
+            "text": "Outro"
+        },
+        {
+            "value": 1,
+            "text": "INSS"
+        },
+        {
+            "value": 2,
+            "text": "Federal"
+        },
+        {
+            "value": 3,
+            "text": "Prefeitura"
+        }
+    ],
+    "loan": [
+        {
+            "value": 1,
+            "text": "Consignado"
+        },
+        {
+            "value": 2,
+            "text": "CDC"
+        },
+        {
+            "value": 3,
+            "text": "Crédito Automático"
+        },
+        {
+            "value": 4,
+            "text": "Novo"
+        },
+        {
+            "value": 5,
+            "text": "Refinanciamento"
+        },
+        {
+            "value": 6,
+            "text": "Portabilidade"
+        }
+    ]
+}
