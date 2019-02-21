@@ -51,11 +51,10 @@ export function request(props, method, returnReduceKey, param = '', methodType =
     const url = `${API}/${method}`
 
     const requestKey = getRequestKey({ url, method: methodType, body: methodType === 'POST' ? JSON.stringify(param) : undefined });
-    const dedupeOptions = { requestKey }
 
     if (withProccess) setValue(props, 'loading', { in: true, text: msgProccess })
 
-    fetchDedupe(url, init, dedupeOptions).then(response => {
+    fetchDedupe(url, init, { requestKey }).then(response => {
         if (response.ok) {
             if (response.status === 200) return response.data 
         } else {
