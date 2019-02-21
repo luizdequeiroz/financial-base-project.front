@@ -33,9 +33,9 @@ function validate(values) {
     if (!values.cell) {
         errors.cell = 'Celular do cliente obrigatório.'
     }
-    if (!values.email) {
-        errors.email = 'E-mail do cliente obrigatório.'
-    }
+    // if (!values.email) {
+    //     errors.email = 'E-mail do cliente obrigatório.'
+    // }
     if (!values.bank) {
         errors.bank = 'Banco do cliente obrigatório.'
     }
