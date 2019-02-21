@@ -25,10 +25,10 @@ class ClientView extends Component {
                 <div className="panel-body">
                     <fieldset className="col-md-6">
                         <legend className="h5">Dados pessoais:</legend>
-                        {client.type === 3 && <div className="col-md-6">
+                        {(client.type === 3 || client.registration) && <div className="col-md-6">
                             <strong>Matrícula: </strong><span>{client.registration || defaultInfo}</span>
                         </div>}
-                        {client.type === 3 && <div className="col-md-6">
+                        {(client.type === 3 || client.portalPassword) && <div className="col-md-6">
                             <strong>Senha do portal: </strong><span>{client.portalPassword || defaultInfo}</span>
                         </div>}
                         <div className="col-md-6">
