@@ -82,7 +82,7 @@ class Clients extends Component {
         post(props, 'company/import/clients', 'clients', csvFile, { withProccess: true, msgProccess: 'Importando arquivo...' })
     }
     
-    expandRow = row => <ClientView client={row} complement />
+    expandRow = row => <ClientView client={row} />
 
     render() {
         const { props } = this
@@ -169,7 +169,7 @@ class Clients extends Component {
                         <hr />
                     </div>
                     : <hr />}
-                <BootstrapTable expandRow={{ renderer: this.expandRow }} keyField='id' data={_clients} columns={columns} search noDataIndication={clients.data ? "Não há clientes!" : <Loading />} />
+                <BootstrapTable striped rowClasses="expansibleRowTable" expandRow={{ renderer: this.expandRow }} keyField='id' data={_clients} columns={columns} search noDataIndication={clients.data ? "Não há clientes!" : <Loading />} />
             </fieldset>
         )
     }

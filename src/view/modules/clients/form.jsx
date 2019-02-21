@@ -131,7 +131,7 @@ class ClientForm extends Component {
                         <Field name="observation" label="Observação" component={Input} type="textarea" placeholder="Observações sobre o cliente..." />
                     </div>
                     <div className="text-right col-md-12">
-                        <a className="btn btn-warning" href="#/clients">Cancelar</a>&nbsp;
+                        <a className="btn btn-warning" href="#/clients">Voltar</a>&nbsp;
                         <button className="btn btn-success" type="submit" disabled={pristine || submitting}>Salvar</button>
                     </div>
                 </form>

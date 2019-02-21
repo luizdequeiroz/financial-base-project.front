@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindDefault } from '../../../config/renders'
-import { formatDate } from '../../../config/functions';
-import { setValue } from '../../../config/dispatchers';
+import { formatDate } from '../../../config/functions'
+import { setValue } from '../../../config/dispatchers'
 
 const defaultInfo = "Não informado."
 const tipos = require('./tipos.json')
@@ -16,8 +16,7 @@ class ClientView extends Component {
     }
 
     render() {
-        // codigo, nome, nascimento, telefone, celular, email, banco, tipo
-        // beneficio ou siap, observacao, data de registro
+        
         const { props } = this
         const { client } = props
 
@@ -26,12 +25,12 @@ class ClientView extends Component {
                 <div className="panel-body">
                     <fieldset className="col-md-6">
                         <legend className="h5">Dados pessoais:</legend>
-                        <div className="col-md-6">
+                        {client.type === 3 && <div className="col-md-6">
                             <strong>Matrícula: </strong><span>{client.registration || defaultInfo}</span>
-                        </div>
-                        <div className="col-md-6">
+                        </div>}
+                        {client.type === 3 && <div className="col-md-6">
                             <strong>Senha do portal: </strong><span>{client.portalPassword || defaultInfo}</span>
-                        </div>
+                        </div>}
                         <div className="col-md-6">
                             <strong>CPF: </strong><span>{client.cpf || defaultInfo}</span>
                         </div>
@@ -67,8 +66,8 @@ class ClientView extends Component {
                 <div className="panel-footer">
                     <div className="text-right">
                         <div className="btn-group">
-                            <a className="btn btn-primary" href="#/client/form" onClick={this.setClient.bind(this)}>Editar</a>
-                            <a className="btn btn-success" href="#/client/loans" onClick={this.setClient.bind(this)}>Empréstimos</a>
+                            <a className="btn btn-primary" href="#/client/form" onClick={this.setClient.bind(this)}><i className="fa fa-edit" /> Editar</a>
+                            <a className="btn btn-success" href="#/client/loans" onClick={this.setClient.bind(this)}><i className="fa fa-money" /> Empréstimos</a>
                         </div>
                     </div>
                 </div>
