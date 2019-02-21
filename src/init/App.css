@@ -89,3 +89,11 @@
 .csvFileInput div {
   height: 54px;
 }
+
+fieldset {
+  padding-bottom: 15px;
+}
+
+.expansibleRowTable {
+  cursor: pointer;
+}
