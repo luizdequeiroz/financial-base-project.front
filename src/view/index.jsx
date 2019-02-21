@@ -76,7 +76,7 @@ class Index extends Component {
                 <Navbar fixedBottom fluid>
                     <div className="text-center">
                         <div className="navbar-footer">
-                            <p>CL Promotora &copy; Todos os direitos reservados.<br /><span className="badge">Versão 1.0</span></p>
+                            <p>CL Promotora &copy; Todos os direitos reservados.<br /><span className="badge">Versão 1.1.5</span></p>
                         </div>
                     </div>
                 </Navbar>
