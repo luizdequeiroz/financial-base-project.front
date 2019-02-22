@@ -95,10 +95,10 @@ class LoanForm extends Component {
                         <div className="col-md-4">
                             <Field name="paymentDate" label="Data de Pagamento" component={Input} type="date" placeholder="Informe a data de pagamento" />
                         </div>
-                        {modality === "3" && <div className="col-md-4">
+                        {modality === "2" && <div className="col-md-4">
                             <Field name="debtorBalance" label="Saldo Devedor" component={Input} type="text" placeholder="Informe o saldo devedor" />
                         </div>}
-                        {modality === "3" && <div className="col-md-4">
+                        {modality === "2" && <div className="col-md-4">
                             <Field name="debtorBalanceQtdPart" label="Qtd. Parcelas do Saldo Devedor" component={Input} type="text" placeholder="Qtd. de parcelas do saldo devedor" normalize={numberOnly} />
                         </div>}
                         <div className="col-md-4">
