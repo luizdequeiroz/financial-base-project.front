@@ -17,55 +17,43 @@
             "text": "Prefeitura"
         }
     ],
-    "loan": [
+    "modality": [
         {
-            "value": 1,
-            "text": "Consignado"
-        },
-        {
-            "value": 2,
-            "text": "CDC"
-        },
-        {
-            "value": 3,
-            "text": "Crédito Automático"
-        },
-        {
-            "value": 4,
+            "value": 0,
             "text": "Novo"
         },
         {
-            "value": 5,
+            "value": 1,
             "text": "Refinanciamento"
         },
         {
-            "value": 6,
+            "value": 2,
             "text": "Portabilidade"
         }
     ],
     "bank": [
         {
-            "value": 1,
+            "value": 0,
             "text": "Daycoval"
         },
         {
-            "value": 2,
+            "value": 1,
             "text": "Panamericano"
         },
         {
-            "value": 3,
+            "value": 2,
             "text": "CCB"
         },
         {
-            "value": 4,
+            "value": 3,
             "text": "Banco do Brasil"
         },
         {
-            "value": 5,
+            "value": 4,
             "text": "Itaú"
         },
         {
-            "value": 6,
+            "value": 5,
             "text": "BMG"
         }
     ],
@@ -81,6 +69,10 @@
         {
             "value": 2,
             "text": "Reprovado"
+        },
+        {
+            "value": 3,
+            "text": "Cancelado"
         }
     ]
 }

@@ -42,7 +42,7 @@ class Loans extends Component {
             dataField: 'modality',
             text: 'Modalidade',
             sort: true,
-            formatter: cell => tipos.loan.filter(l => l.value === cell)[0].text
+            formatter: cell => tipos.modality.filter(m => m.value === cell)[0].text
         }, {
             dataField: 'status',
             text: 'Status',
@@ -73,15 +73,18 @@ class Loans extends Component {
         }))
 
         return (
-            <fieldset>
-                <legend>
-                    <div style={{ float: 'left' }}>Empréstimos de {client.name} <Loading /></div>
-                    <div style={{ float: 'right' }}>
-                        <a className="btn btn-primary btn-xs" href="#/client/loan/form"><i className="fa fa-plus-circle" /> NOVO</a>
-                    </div>
-                </legend>
-                <BootstrapTable striped rowClasses="expansibleRowTable" /* expandRow={{ renderer: this.expandRow }} */ keyField='id' data={_loans} columns={columns} search noDataIndication={loans.data ? `Não há empréstimos para ${client.name}!` : <Loading />} />
-            </fieldset>
+            <div>
+                <i className="fa fa-arrow-left fa-2x btn" style={{ float: 'left' }} onClick={() => window.location.hash = '#/clients'} />
+                <fieldset>
+                    <legend>
+                        <div style={{ float: 'left' }}>Empréstimos de {client.name} <Loading /></div>
+                        <div style={{ float: 'right' }}>
+                            <a className="btn btn-primary btn-xs" href="#/client/loan/form"><i className="fa fa-plus-circle" /> NOVO</a>
+                        </div>
+                    </legend>
+                    <BootstrapTable striped rowClasses="expansibleRowTable" /* expandRow={{ renderer: this.expandRow }} */ keyField='id' data={_loans} columns={columns} search noDataIndication={loans.data ? `Não há empréstimos para ${client.name}!` : <Loading />} />
+                </fieldset>
+            </div>
         )
     }
 }
