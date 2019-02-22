@@ -41,7 +41,7 @@ function validate(values) {
 class LoanForm extends Component {
 
     state = {
-        modality: undefined
+        modality: this.props.loan.modality.toString()
     }
 
     componentDidMount() {
