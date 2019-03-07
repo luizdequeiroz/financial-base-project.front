@@ -50,7 +50,7 @@ class LoanForm extends Component {
         loan.loanDate = loan.loanDate && loan.loanDate.substring(0, 10)
         loan.requestDate = loan.requestDate && loan.requestDate.substring(0, 10)
 
-        this.setState({ modality: loan.modality.toString() })
+        this.setState({ modality: loan.modality && loan.modality.toString() })
 
         dispatch(initialize(form, loan))
     }

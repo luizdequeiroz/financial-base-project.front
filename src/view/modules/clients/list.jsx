@@ -91,11 +91,15 @@ class Clients extends Component {
 
         const columns = [{
             dataField: 'id',
-            text: 'Código',
+            text: 'Id',
             sort: true
         }, {
             dataField: 'name',
             text: 'Nome do Cliente',
+            sort: true
+        }, {
+            dataField: 'margin',
+            text: 'Margem',
             sort: true
         }, {
             dataField: 'birthDate',
@@ -140,7 +144,7 @@ class Clients extends Component {
                     <div className="input-group-addon" style={{ padding: 0, width: '175px' }}>
                         <div className="input-group">
                             <select ref="filterType" className="form-control" style={{ paddingRight: 14, border: 'none', height: '32px' }} onChange={e => this.applyFilterType(e)}>
-                                <option value="id">Código</option>
+                                <option value="id">Id</option>
                                 <option value="name" selected>Nome</option>
                                 <option value="birthDate">Data de Nascimento</option>
                                 <option value="phone">Telefone/Celular</option>

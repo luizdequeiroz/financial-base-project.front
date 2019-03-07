@@ -58,6 +58,9 @@ class ClientView extends Component {
                         <div className="col-md-6">
                             <strong>Data de Cadastro: </strong><span>{formatDate(client.registerDate)}</span>
                         </div>
+                        {client.margin > 0 && <div className="col-md-6">
+                            <strong>Margem: </strong><span>{client.margin} em {formatDate(client.marginDate)}</span>
+                        </div>}
                         <div className="col-md-12">
                             <strong>Observação: </strong><span>{client.observation || defaultInfo}</span>
                         </div>

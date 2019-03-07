@@ -16,6 +16,8 @@ const tipos = require('./tipos.json')
 
 function saveClient(values, route, props) {
 
+    values.margin = values.margin || 0
+
     if (values.id) return put(props, `company/client/${values.id}`, 'client', values, { withProccess: true, msgProccess: 'Atualizando dados do cliente...', withSuccessedAlert: true })
     else return post(props, 'company/client', 'client', values, { withProccess: true, msgProccess: 'Salvando dados do cliente...', withSuccessedAlert: true })
 }
@@ -55,6 +57,8 @@ class ClientForm extends Component {
         const { dispatch, form, client } = this.props
 
         client.birthDate = client.birthDate && client.birthDate.substring(0, 10)
+        client.marginDate = client.marginDate && client.marginDate.substring(0, 10)
+        delete client.actions
 
         dispatch(initialize(form, client))
     }
@@ -128,6 +132,12 @@ class ClientForm extends Component {
                         </div>
                         <div className="col-md-4">
                             <Field name="op" label="Op. da Conta" component={Input} type="text" placeholder="Informe a operação da conta" />
+                        </div>
+                        <div className="col-md-4">
+                            <Field name="margin" label="Margem" component={Input} type="text" placeholder="Informe a margem do cliente" />
+                        </div>
+                        <div className="col-md-4">
+                            <Field name="marginDate" label="Data da Margem" component={Input} type="date" placeholder="Data de margem do cliente" />
                         </div>
                         <div className="col-md-6">
                             <Field name="observation" label="Observação" component={Input} type="textarea" placeholder="Observações sobre o cliente..." />
