@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import BootstrapTable from 'react-bootstrap-table-next'
 import { formatDate, maskTelefone, removerMaskTelefone } from '../../../config/functions'
 import { bindDefault } from '../../../config/renders'
-import { get, post } from '../../../config/requesters'
+import { get, post, del } from '../../../config/requesters'
 import { setValue } from '../../../config/dispatchers'
 
 import Loading from '../../components/loading'
 import CsvInput from '../../components/csvinput'
 
 import ClientView from './view'
+import swal from 'sweetalert'
 
 const enter = 13
 const msgSearching = 'Pesquisando clientes...'
@@ -81,8 +82,25 @@ class Clients extends Component {
 
         post(props, 'company/import/clients', 'clients', csvFile, { withProccess: true, msgProccess: 'Importando arquivo...' })
     }
-    
+
     expandRow = row => <ClientView client={row} />
+
+    deleteClient(id) {
+        const { props } = this
+
+        swal({
+            title: 'Deletar cliente?',
+            text: "Deseja realmente deletar este cliente?!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then(willDelete => {
+            if (willDelete) {
+                del(props, `company/client/${id}/delete`, 'clientDeleted', { withProccess: true, withSuccessedAlert: true })
+                setTimeout(() => get(props, 'company/clients/50', 'clients', { withProccess: true, msgProccess: msgSearching }), 3000)
+            }
+        })
+    }
 
     render() {
         const { props } = this
@@ -124,12 +142,17 @@ class Clients extends Component {
         }, {
             dataField: 'actions',
             text: 'Ações',
-            headerStyle: { width: '60px' }
+            headerStyle: { width: '120px' }
         }]
 
         const _clients = (clients.data || []).map(client => ({
             ...client,
-            actions: <a className="btn btn-primary btn-xs" href="#/client/form" onClick={() => setValue(props, 'client', client)}>Editar</a>
+            actions: (
+                <div className="btn-group">
+                    <a className="btn btn-primary btn-xs" href="#/client/form" onClick={() => setValue(props, 'client', client)}>Editar</a>
+                    <button className="btn btn-danger btn-xs" onClick={() => this.deleteClient(client.id)}>Excluir</button>
+                </div>
+            )
         }))
 
         return (
