@@ -1,0 +1,78 @@
+{
+    "client": [
+        {
+            "value": 0,
+            "text": "Outro"
+        },
+        {
+            "value": 1,
+            "text": "INSS"
+        },
+        {
+            "value": 2,
+            "text": "Federal"
+        },
+        {
+            "value": 3,
+            "text": "Prefeitura"
+        }
+    ],
+    "modality": [
+        {
+            "value": 0,
+            "text": "Novo"
+        },
+        {
+            "value": 1,
+            "text": "Refinanciamento"
+        },
+        {
+            "value": 2,
+            "text": "Portabilidade"
+        }
+    ],
+    "bank": [
+        {
+            "value": 0,
+            "text": "Daycoval"
+        },
+        {
+            "value": 1,
+            "text": "Panamericano"
+        },
+        {
+            "value": 2,
+            "text": "CCB"
+        },
+        {
+            "value": 3,
+            "text": "Banco do Brasil"
+        },
+        {
+            "value": 4,
+            "text": "Itaú"
+        },
+        {
+            "value": 5,
+            "text": "BMG"
+        }
+    ],
+    "status": [
+        {
+            "value": 0,
+            "text": "Em análise"
+        },
+        {
+            "value": 1,
+            "text": "Aprovado"
+        },
+        {
+            "value": 2,
+            "text": "Reprovado"
+        },
+        {
+            "value": 3,
+            "text": "Cancelado"
+        }
+    ]
+}

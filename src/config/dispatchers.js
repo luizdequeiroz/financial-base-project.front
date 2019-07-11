@@ -1,7 +1,7 @@
 import { fetchDedupe, getRequestKey } from 'fetch-dedupe'
 import swal from 'sweetalert2'
 
-const API = process.env.REACT_APP_API_DEVELOP
+const API = process.env.NODE_ENV !== 'production' ? process.env.REACT_APP_API_DEVELOP : process.env.REACT_APP_API_PRODUCT
 
 /**
  * Função que armazena um valor em um reducer cuja key foi especificada.
@@ -35,7 +35,7 @@ export function clearValues(props) {
  * @param {boolean} withFailedAlert indica se a solicitação acionará um modal de falha quando a mesma falhar na API (erro tratado na API).
  * @param {boolean} withErrorAlert indica se a solicitação acionará um modal de erro quando a mesma errar por alguma razão ao comunicar-se com a API.
  */
-export function request(props, method, returnReduceKey, param = '', methodType = 'GET', withProccess = false, msgProccess, withSuccessedAlert = false, msgSuccessedAlert, withWarningAlert = true, msgWarningAlert, withFailedAlert = true, msgFailedAlert = 'Revalide a sessão para continuar usando o sistema.', withErrorAlert = true, msgErrorAlert = 'Erro interno no serviço.') {
+export function request(props, method, returnReduceKey, param = '', methodType = 'GET', withProccess = false, msgProccess, withSuccessedAlert = false, msgSuccessedAlert, withWarningAlert = true, msgWarningAlert, withFailedAlert = true, msgFailedAlert = 'Tente revalidar a sessão para continuar usando o sistema.', withErrorAlert = true, msgErrorAlert = 'Erro interno no serviço.') {
 
     var init = {
         method: methodType,
@@ -51,24 +51,28 @@ export function request(props, method, returnReduceKey, param = '', methodType =
     const url = `${API}/${method}`
 
     const requestKey = getRequestKey({ url, method: methodType, body: methodType === 'POST' ? JSON.stringify(param) : undefined });
-    const dedupeOptions = { requestKey }
 
     if (withProccess) setValue(props, 'loading', { in: true, text: msgProccess })
 
-    fetchDedupe(url, init, dedupeOptions).then(response => {
+    fetchDedupe(url, init, { requestKey }).then(response => {
         if (response.ok) {
-            if (response.status === 200)
-                return response.data
-            else if (response.status === 401) {
+            if (response.status === 200) return response.data 
+        } else {
+            if (response.status === 401) {
+                // se houver alguma consulta na página inicial após entrar no sistema // TODO
                 if (window.location.hash === '#/') {
                     sessionStorage.clear()
-                    setValue(props, 'session')
-                }
-                window.location.hash = '#'
-                if (withFailedAlert) swal('Sessão inválida ou expirada!', msgFailedAlert, 'info')
+                    clearValues()
+                }                
+                
+                if (withFailedAlert) swal('Sessão inválida para a operação ou expirada!', msgFailedAlert, 'info')
+                
+                window.location.hash = '#/'
+
+                return {}
+            } else {
+                throw new Error(JSON.stringify(response))
             }
-        } else {
-            throw new Error(JSON.stringify(response))
         }
     }).then(json => {
         setValue(props, returnReduceKey, json)
@@ -88,4 +92,6 @@ export function request(props, method, returnReduceKey, param = '', methodType =
         if (withErrorAlert) swal(msgErrorAlert, 'Entre em contato com o suporte.', 'error')
         if (withProccess) setValue(props, 'loading', { in: false, text: '' })
     })
+
+    return { type: 'request', method, returnReduceKey, param, methodType, withProccess, msgProccess, withSuccessedAlert, msgSuccessedAlert, withWarningAlert, msgWarningAlert, withFailedAlert, msgFailedAlert, withErrorAlert, msgErrorAlert }
 }

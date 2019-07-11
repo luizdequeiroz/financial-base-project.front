@@ -48,9 +48,6 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
-
-  /* configurações page */
-  margin-top: 80px;
 }
 
 .flex-menu-item {
@@ -75,4 +72,28 @@
   .panel-form {
     width: 90%;
   }
+}
+
+.csvFileInput {
+
+  border: dotted 1px black;
+  border-radius: 4px;
+  height: 56px;
+  text-align: center;
+}
+
+.csvFileInput:hover {
+  border: dashed 1px blue;
+}
+
+.csvFileInput div {
+  height: 54px;
+}
+
+fieldset {
+  padding-bottom: 15px;
+}
+
+.expansibleRowTable {
+  cursor: pointer;
 }

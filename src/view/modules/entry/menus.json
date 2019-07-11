@@ -1,0 +1,8 @@
+[
+    {
+        "type": "default",
+        "route": "#/clients",
+        "icon": "users",
+        "text": "Clientes"
+    }
+]
